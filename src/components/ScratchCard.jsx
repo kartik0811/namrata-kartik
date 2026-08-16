@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
  * scratched away the card auto-reveals with a soft fade. The value stays
  * hidden until the guest actually scratches it.
  */
-export default function ScratchCard({ label, value, threshold = 0.45 }) {
+export default function ScratchCard({ label, value, threshold = 0.45, onRevealed }) {
   const wrapRef = useRef(null);
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
@@ -21,7 +21,8 @@ export default function ScratchCard({ label, value, threshold = 0.45 }) {
     if (revealedRef.current) return;
     revealedRef.current = true;
     setRevealed(true);
-  }, []);
+    if (onRevealed) onRevealed();
+  }, [onRevealed]);
 
   const initCanvas = useCallback(() => {
     const canvas = canvasRef.current;
@@ -171,7 +172,7 @@ export default function ScratchCard({ label, value, threshold = 0.45 }) {
       >
         {/* Value revealed underneath the foil */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="font-serif text-4xl font-bold text-shimmer">{value}</span>
+          <span className="font-pacifico italic text-4xl text-wine">{value}</span>
         </div>
 
         {/* Gold foil to scratch away */}

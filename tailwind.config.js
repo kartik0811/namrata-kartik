@@ -18,6 +18,7 @@ export default {
       },
       fontFamily: {
         script: ["'Great Vibes'", "cursive"],
+        pacifico: ["'Pacifico'", "cursive"],
         serif: ["'Cormorant Garamond'", "serif"],
         sans: ["'Poppins'", "sans-serif"],
       },

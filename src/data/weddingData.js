@@ -13,16 +13,16 @@ export const couple = {
 
 // TODO: Replace with your wedding date & time (used by the live countdown).
 // Format: "Month Day, Year HH:MM:SS"
-export const weddingDate = "January 31, 2027 18:00:00";
+export const weddingDate = "January 25, 2027 18:00:00";
 
 // A short human-readable version shown in the hero.
-export const weddingDatePretty = "31 · 01 · 2027";
-export const weddingDateLong = "Sunday, 31st January 2027";
+export const weddingDatePretty = "25 · 01 · 2027";
+export const weddingDateLong = "Monday, 25th January 2027";
 
 // Individual parts revealed by the golden scratch cards in the hero.
 // TODO: keep these in sync with your wedding date above.
 export const weddingDateParts = {
-  day: "31",
+  day: "25",
   month: "JAN",
   year: "2027",
 };
