@@ -3,7 +3,6 @@ import { motion, useScroll, useSpring } from "framer-motion";
 
 import IntroOverlay from "./components/IntroOverlay";
 import Navbar from "./components/Navbar";
-import Petals from "./components/Petals";
 import Hero from "./components/Hero";
 import OurStory from "./components/OurStory";
 import Countdown from "./components/Countdown";
@@ -12,6 +11,7 @@ import Timeline from "./components/Timeline";
 import Gallery from "./components/Gallery";
 import Rsvp from "./components/Rsvp";
 import Footer from "./components/Footer";
+import MusicToggle from "./components/MusicToggle";
 
 export default function App() {
   const [introDone, setIntroDone] = useState(false);
@@ -33,8 +33,8 @@ export default function App() {
         className="fixed inset-x-0 top-0 z-[60] h-1 origin-left bg-gradient-gold"
       />
 
-      <Petals />
       <Navbar />
+      <MusicToggle />
 
       <main>
         <Hero started={introDone} />
