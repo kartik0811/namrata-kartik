@@ -101,9 +101,10 @@ export const gallery = [
 export const rsvp = {
   message:
     "Your presence is the greatest gift. Kindly let us know if you'll be joining the celebration.",
-  // Where the RSVP form / button should point. Could be a Google Form, mailto, etc.
-  rsvpUrl: "mailto:rsvp@example.com?subject=RSVP%20—%20Namrata%20%26%20Kartik",
-  deadline: "Please RSVP by 1st January 2027",
+  // FormSubmit relays each RSVP to this inbox. The recipient must confirm the
+  // first submission once before emails are delivered.
+  submissionEndpoint: "https://formsubmit.co/ajax/kartik.thescorp@gmail.com",
+  deadline: "Please RSVP by 30th November 2026",
   contacts: [
     { name: "Namrata", phone: "+91 91234 56780" },
     { name: "Kartik", phone: "+91 98765 43210" },

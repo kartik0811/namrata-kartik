@@ -4,11 +4,9 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import IntroOverlay from "./components/IntroOverlay";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import OurStory from "./components/OurStory";
 import Countdown from "./components/Countdown";
 import EventDetails from "./components/EventDetails";
 import Timeline from "./components/Timeline";
-import Gallery from "./components/Gallery";
 import Rsvp from "./components/Rsvp";
 import Footer from "./components/Footer";
 import MusicToggle from "./components/MusicToggle";
@@ -38,11 +36,9 @@ export default function App() {
 
       <main>
         <Hero started={introDone} />
-        <OurStory />
         <Countdown />
         <EventDetails />
         <Timeline />
-        <Gallery />
         <Rsvp />
       </main>
 

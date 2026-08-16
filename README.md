@@ -15,7 +15,7 @@ Built with **React + Vite + Tailwind CSS + Framer Motion**.
 - Reveal-on-scroll for every section
 - Animated **wedding timeline** / itinerary
 - Gallery with hover zoom + **lightbox**
-- **RSVP** form (mailto-based; hook up your own backend)
+- **RSVP** form that emails submissions through FormSubmit
 - **Add to Calendar** (.ics) + Open Map buttons
 - Floating **music toggle**, scroll-progress bar, smooth navigation
 - Fully **responsive** and **accessible** (keyboard-friendly, `prefers-reduced-motion` support)
@@ -39,6 +39,9 @@ Each field is marked with a `TODO` comment.
   or update the Unsplash placeholder URLs.
 - **Colours:** tweak the palette in [`tailwind.config.js`](tailwind.config.js).
 - **Music:** set `musicSrc` in the data file to a local `/track.mp3`.
+- **RSVP email:** the first real RSVP triggers a confirmation email for
+  `kartik.thescorp@gmail.com`. Open that link once to activate delivery; later
+  RSVP submissions are sent there automatically.
 
 ## 🌐 Deploying to GitHub Pages
 

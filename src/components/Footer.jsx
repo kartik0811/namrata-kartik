@@ -50,7 +50,7 @@ export default function Footer() {
 
         <p className="mt-10 font-script text-2xl text-shimmer">{couple.hashtag}</p>
         <p className="mt-4 text-xs text-champagne/50">
-          Made with 💛 · {new Date().getFullYear()}
+          Made with love · {new Date().getFullYear()}
         </p>
       </div>
     </footer>

@@ -79,20 +79,12 @@ export default function IntroOverlay({ onFinish }) {
         transition={{ duration: curtainDuration, ease: [0.25, 0.46, 0.45, 0.94], delay: opening ? 0.08 : 0 }}
       />
 
-      {/* Gold parting seam glow - enhanced */}
-      <motion.div
-        className="absolute inset-y-0 left-1/2 w-1 -translate-x-1/2 bg-gradient-to-b from-transparent via-gold to-transparent"
-        animate={{ opacity: opening ? 0 : [0.4, 1, 0.4] }}
-        transition={{ duration: 2.4, repeat: opening ? 0 : Infinity }}
-      />
-
       {/* Center hint */}
       <motion.div
         className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center"
         animate={{ opacity: opening ? 0 : 1 }}
         transition={{ duration: 0.4 }}
       >
-        <div className="animate-heartbeat text-6xl md:text-7xl">💛</div>
         <h1 className="mt-4 font-script text-5xl text-champagne drop-shadow-lg md:text-7xl">
           {couple.partnerOne} &amp; {couple.partnerTwo}
         </h1>
