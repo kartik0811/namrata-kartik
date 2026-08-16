@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gold: #c8a15a;
+  --rose: #e9a6a1;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #fffaf3;
+  color: #5b463b;
+  font-family: "Poppins", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Elegant gold gradient scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #fffaf3;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #e9a6a1, #c8a15a);
+  border-radius: 10px;
+}
+
+/* Selection colour */
+::selection {
+  background: #f4e4c9;
+  color: #7a3b46;
+}
+
+@layer components {
+  /* Shimmering gold text used for headings/monograms */
+  .text-shimmer {
+    background: linear-gradient(
+      90deg,
+      #a67c33 0%,
+      #c8a15a 25%,
+      #f4e4c9 50%,
+      #c8a15a 75%,
+      #a67c33 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Soft frosted-glass card */
+  .glass {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+  }
+
+  .section-title {
+    @apply font-serif text-4xl md:text-5xl font-semibold text-wine;
+  }
+}
+
+/* Respect users who prefer reduced motion: calm everything down. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
