@@ -6,23 +6,53 @@ import { rsvp, couple } from "../data/weddingData";
 
 export default function Rsvp() {
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
   const [form, setForm] = useState({ name: "", guests: "1", attending: "yes" });
 
   const update = (e) =>
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Hook this up to your backend / Google Form / email service.
-    // For now we build a friendly mailto so responses reach you.
-    const subject = encodeURIComponent(
-      `RSVP — ${couple.partnerOne} & ${couple.partnerTwo}`
-    );
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nAttending: ${form.attending}\nGuests: ${form.guests}`
-    );
-    window.location.href = `mailto:rsvp@example.com?subject=${subject}&body=${body}`;
-    setSent(true);
+    const formData = new FormData(e.currentTarget);
+
+    // Bots that fill the hidden honeypot receive the same response, without
+    // triggering an email notification.
+    if (formData.get("_honey")) {
+      setSent(true);
+      return;
+    }
+
+    setSubmitting(true);
+    setError("");
+
+    try {
+      const response = await fetch(rsvp.submissionEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          _subject: `New RSVP — ${couple.partnerOne} & ${couple.partnerTwo}`,
+          _template: "table",
+          Name: form.name,
+          Attending: form.attending === "yes" ? "Joyfully accepts" : "Regretfully declines",
+          "Number of guests": form.guests,
+        }),
+      });
+
+      const result = await response.json();
+      if (!response.ok || result.success === false || result.success === "false") {
+        throw new Error("Unable to send RSVP");
+      }
+      setSent(true);
+    } catch {
+      setError("We couldn't send your RSVP. Please try again or call us directly.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -63,6 +93,14 @@ export default function Rsvp() {
                 exit={{ opacity: 0, y: -20 }}
                 className="glass space-y-5 rounded-3xl p-8 text-left shadow-soft"
               >
+                <input
+                  type="text"
+                  name="_honey"
+                  tabIndex="-1"
+                  autoComplete="off"
+                  className="hidden"
+                  aria-hidden="true"
+                />
                 <div>
                   <label htmlFor="name" className="mb-1 block text-sm font-medium text-cocoa">
                     Your Name
@@ -113,33 +151,20 @@ export default function Rsvp() {
 
                 <button
                   type="submit"
-                  className="group relative w-full overflow-hidden rounded-full bg-gradient-gold py-3.5 font-medium text-white shadow-glow transition-transform hover:scale-[1.02]"
+                  disabled={submitting}
+                  className="group relative w-full overflow-hidden rounded-full bg-gradient-gold py-3.5 font-medium text-white shadow-glow transition-transform hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:scale-100"
                 >
-                  <span className="relative z-10">Send RSVP 💌</span>
+                  <span className="relative z-10">{submitting ? "Sending RSVP…" : "Send RSVP 💌"}</span>
                   <span className="absolute inset-0 -translate-x-full bg-white/30 transition-transform duration-500 group-hover:translate-x-0" />
                 </button>
 
+                {error && <p role="alert" className="text-center text-sm text-wine">{error}</p>}
                 <p className="text-center text-xs text-cocoa/60">{rsvp.deadline}</p>
               </motion.form>
             )}
           </AnimatePresence>
         </SectionReveal>
 
-        {/* Contacts */}
-        <SectionReveal delay={0.25} className="mt-10">
-          <p className="text-sm uppercase tracking-[0.25em] text-goldDark">Questions? Call us</p>
-          <div className="mt-3 flex flex-wrap justify-center gap-6">
-            {rsvp.contacts.map((c) => (
-              <a
-                key={c.name}
-                href={`tel:${c.phone.replace(/\s/g, "")}`}
-                className="font-serif text-lg text-wine transition-colors hover:text-goldDark"
-              >
-                {c.name}: <span className="text-cocoa/80">{c.phone}</span>
-              </a>
-            ))}
-          </div>
-        </SectionReveal>
       </div>
     </section>
   );

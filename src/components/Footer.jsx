@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { couple, weddingDateLong, socials, eventDetails } from "../data/weddingData";
+import { couple, weddingDateLong, eventDetails } from "../data/weddingData";
 
 export default function Footer() {
   return (
@@ -25,33 +25,14 @@ export default function Footer() {
         <p className="mt-2 font-serif tracking-[0.3em] text-champagne/70 uppercase text-sm">
           {weddingDateLong}
         </p>
-        <p className="mt-1 text-champagne/60">{eventDetails.venue}, Jaipur</p>
+        <p className="mt-1 text-champagne/60">{eventDetails.venue}, Kanpur</p>
 
         <p className="mx-auto mt-8 max-w-md font-serif text-lg italic text-champagne/85">
           "And so the adventure begins. Thank you for being part of our story —
           we can't wait to celebrate with you."
         </p>
 
-        {socials?.length > 0 && (
-          <div className="mt-8 flex flex-wrap justify-center gap-6">
-            {socials.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm uppercase tracking-[0.2em] text-champagne/70 transition-colors hover:text-gold"
-              >
-                {s.label}
-              </a>
-            ))}
-          </div>
-        )}
-
         <p className="mt-10 font-script text-2xl text-shimmer">{couple.hashtag}</p>
-        <p className="mt-4 text-xs text-champagne/50">
-          Made with 💛 · {new Date().getFullYear()}
-        </p>
       </div>
     </footer>
   );

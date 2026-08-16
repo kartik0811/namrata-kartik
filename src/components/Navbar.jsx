@@ -3,11 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { couple } from "../data/weddingData";
 
 const links = [
-  { label: "Story", href: "#story" },
   { label: "Countdown", href: "#countdown" },
   { label: "Details", href: "#details" },
   { label: "Timeline", href: "#timeline" },
-  { label: "Gallery", href: "#gallery" },
   { label: "RSVP", href: "#rsvp" },
 ];
 

@@ -8,7 +8,7 @@ export const couple = {
   partnerOne: "Namrata",
   partnerTwo: "Kartik",
   monogram: "N & K", // used in navbar + footer
-  hashtag: "#NamrataWedsKartik",
+  hashtag: "#KarNamaHoGaya",
 };
 
 // TODO: Replace with your wedding date & time (used by the live countdown).
@@ -46,44 +46,34 @@ export const story = {
 
 // TODO: Update event / venue details.
 export const eventDetails = {
-  date: "31st January 2027",
-  time: "6:00 PM onwards",
-  venue: "The Royal Palace",
-  address: "Amber Fort Road, Jaipur, Rajasthan 302001",
-  dressCode: "Indian Festive / Formal",
-  // A Google Maps search link — replace with your exact venue link.
-  mapUrl: "https://www.google.com/maps/search/?api=1&query=Amber+Fort+Jaipur",
+  venue: "Blueworld Castles",
+  address: "Mandhana – Bithoor Road, Kanpur, Uttar Pradesh",
+  city: "Kanpur, Uttar Pradesh",
+  mapUrl: "https://maps.app.goo.gl/bWFYM7CoVbSjhqLC8",
 };
 
 // TODO: Update the celebration timeline / itinerary.
 export const timeline = [
   {
-    icon: "🌿",
-    title: "Mehendi",
-    date: "30 January 2027",
-    time: "11:00 AM",
-    description: "Intricate henna, music and colour to open the celebrations.",
+    icon: "🌼",
+    title: "Haldi",
+    date: "24th January 2027",
+    time: "12:00 PM onwards",
+    description: "A joyful afternoon of turmeric hues, laughter, and blessings to begin the celebrations.",
   },
   {
     icon: "🎶",
-    title: "Sangeet & Ring Ceremony",
-    date: "30 January 2027",
-    time: "7:00 PM",
-    description: "An evening of dance, dazzle and the exchange of rings.",
+    title: "Tilak, Ring Ceremony & Sangeet",
+    date: "24th January 2027",
+    time: "7:00 PM onwards",
+    description: "An evening of cherished traditions, exchanged rings, and joyful dancing.",
   },
   {
     icon: "🔥",
-    title: "Wedding Ceremony",
-    date: "31 January 2027",
-    time: "6:00 PM",
-    description: "The sacred vows, taken hand in hand around the holy fire.",
-  },
-  {
-    icon: "🥂",
-    title: "Reception",
-    date: "31 January 2027",
-    time: "9:00 PM",
-    description: "A grand celebration with dinner, toasts and dancing.",
+    title: "Wedding Ceremony followed by Reception",
+    date: "25th January 2027",
+    time: "3:00 PM onwards",
+    description: "A beautiful afternoon of Varmala and Pheras, followed by a joyous reception with loved ones.",
   },
 ];
 
@@ -101,13 +91,10 @@ export const gallery = [
 export const rsvp = {
   message:
     "Your presence is the greatest gift. Kindly let us know if you'll be joining the celebration.",
-  // Where the RSVP form / button should point. Could be a Google Form, mailto, etc.
-  rsvpUrl: "mailto:rsvp@example.com?subject=RSVP%20—%20Namrata%20%26%20Kartik",
-  deadline: "Please RSVP by 1st January 2027",
-  contacts: [
-    { name: "Namrata", phone: "+91 91234 56780" },
-    { name: "Kartik", phone: "+91 98765 43210" },
-  ],
+  // FormSubmit relays each RSVP to this inbox. The recipient must confirm the
+  // first submission once before emails are delivered.
+  submissionEndpoint: "https://formsubmit.co/ajax/kartik.thescorp@gmail.com",
+  deadline: "Please RSVP by 30th November 2026",
 };
 
 // Soft flute background music. It starts automatically when the guest opens
@@ -115,10 +102,3 @@ export const rsvp = {
 // TODO: Drop your own soft flute track at public/blue.mp3 (this path is
 // served from the site root). To use a hosted file instead, paste its URL here.
 export const musicSrc = "/blue.mp3";
-
-// TODO: Optional social / contact links shown in the footer.
-export const socials = [
-  { label: "Email", href: "mailto:hello@example.com" },
-  { label: "Instagram", href: "https://instagram.com" },
-  { label: "WhatsApp", href: "https://wa.me/919876543210" },
-];

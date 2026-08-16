@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { couple, weddingDateParts } from "../data/weddingData";
 import ScratchCard from "./ScratchCard";
 import Confetti from "./Confetti";
+import dpImage from "../../dp.jpg";
 
 const container = {
   hidden: {},
@@ -49,13 +50,10 @@ export default function Hero({ started = true }) {
         className="absolute inset-0 -z-10 scale-110 bg-gradient-romance"
       >
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-25 mix-blend-multiply"
-          style={{
-            backgroundImage:
-              // TODO: swap for your own hero image in /public
-              "url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop')",
-          }}
+          className="absolute inset-0 bg-[length:70%_auto] bg-[center_44%] bg-no-repeat opacity-40 blur-[2px] brightness-110 saturate-110"
+          style={{ backgroundImage: `url(${dpImage})` }}
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-ivory/20 via-transparent to-blush/35" />
         {/* Soft radial glow */}
         <div className="absolute left-1/2 top-1/2 h-[70vh] w-[70vh] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/20 blur-3xl" />
       </motion.div>
@@ -102,26 +100,11 @@ export default function Hero({ started = true }) {
           </div>
         </motion.div>
 
-        <motion.div variants={item} className="mt-10 flex flex-wrap justify-center gap-4">
-          <a
-            href="#details"
-            className="group relative overflow-hidden rounded-full bg-gradient-gold px-8 py-3 font-medium text-white shadow-glow transition-transform hover:scale-105"
-          >
-            <span className="relative z-10">Celebrate With Us</span>
-            <span className="absolute inset-0 -translate-x-full bg-white/30 transition-transform duration-500 group-hover:translate-x-0" />
-          </a>
-          <a
-            href="#story"
-            className="rounded-full border border-gold/70 px-8 py-3 font-medium text-wine transition-all hover:bg-gold/10 hover:scale-105"
-          >
-            View Details
-          </a>
-        </motion.div>
       </motion.div>
 
       {/* Scroll cue */}
       <motion.a
-        href="#story"
+        href="#countdown"
         aria-label="Scroll down"
         className="absolute bottom-8 left-1/2 -translate-x-1/2 text-goldDark"
         animate={reduce ? {} : { y: [0, 10, 0] }}
