@@ -165,21 +165,6 @@ export default function Rsvp() {
           </AnimatePresence>
         </SectionReveal>
 
-        {/* Contacts */}
-        <SectionReveal delay={0.25} className="mt-10">
-          <p className="text-sm uppercase tracking-[0.25em] text-goldDark">Questions? Call us</p>
-          <div className="mt-3 flex flex-wrap justify-center gap-6">
-            {rsvp.contacts.map((c) => (
-              <a
-                key={c.name}
-                href={`tel:${c.phone.replace(/\s/g, "")}`}
-                className="font-serif text-lg text-wine transition-colors hover:text-goldDark"
-              >
-                {c.name}: <span className="text-cocoa/80">{c.phone}</span>
-              </a>
-            ))}
-          </div>
-        </SectionReveal>
       </div>
     </section>
   );

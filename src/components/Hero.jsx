@@ -102,26 +102,11 @@ export default function Hero({ started = true }) {
           </div>
         </motion.div>
 
-        <motion.div variants={item} className="mt-10 flex flex-wrap justify-center gap-4">
-          <a
-            href="#details"
-            className="group relative overflow-hidden rounded-full bg-gradient-gold px-8 py-3 font-medium text-white shadow-glow transition-transform hover:scale-105"
-          >
-            <span className="relative z-10">Celebrate With Us</span>
-            <span className="absolute inset-0 -translate-x-full bg-white/30 transition-transform duration-500 group-hover:translate-x-0" />
-          </a>
-          <a
-            href="#story"
-            className="rounded-full border border-gold/70 px-8 py-3 font-medium text-wine transition-all hover:bg-gold/10 hover:scale-105"
-          >
-            View Details
-          </a>
-        </motion.div>
       </motion.div>
 
       {/* Scroll cue */}
       <motion.a
-        href="#story"
+        href="#countdown"
         aria-label="Scroll down"
         className="absolute bottom-8 left-1/2 -translate-x-1/2 text-goldDark"
         animate={reduce ? {} : { y: [0, 10, 0] }}
