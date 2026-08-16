@@ -1,7 +1,8 @@
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { couple, weddingDateParts } from "../data/weddingData";
 import ScratchCard from "./ScratchCard";
+import Confetti from "./Confetti";
 
 const container = {
   hidden: {},
@@ -18,6 +19,13 @@ const item = {
 export default function Hero({ started = true }) {
   const ref = useRef(null);
   const reduce = useReducedMotion();
+  const [revealedCards, setRevealedCards] = useState(0);
+  const allRevealed = revealedCards === 3;
+  
+  const handleCardRevealed = () => {
+    setRevealedCards((prev) => Math.min(prev + 1, 3));
+  };
+  
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -34,6 +42,7 @@ export default function Hero({ started = true }) {
       ref={ref}
       className="relative flex min-h-screen items-center justify-center overflow-hidden"
     >
+      <Confetti triggered={allRevealed} />
       {/* Parallax gradient + image backdrop */}
       <motion.div
         style={{ y: bgY }}
@@ -87,9 +96,9 @@ export default function Hero({ started = true }) {
             Scratch the golden cards to reveal our date ✨
           </p>
           <div className="flex flex-wrap items-start justify-center gap-4">
-            <ScratchCard label="Day" value={weddingDateParts.day} />
-            <ScratchCard label="Month" value={weddingDateParts.month} />
-            <ScratchCard label="Year" value={weddingDateParts.year} />
+            <ScratchCard label="Day" value={weddingDateParts.day} threshold={0.12} onRevealed={handleCardRevealed} />
+            <ScratchCard label="Month" value={weddingDateParts.month} threshold={0.12} onRevealed={handleCardRevealed} />
+            <ScratchCard label="Year" value={weddingDateParts.year} threshold={0.12} onRevealed={handleCardRevealed} />
           </div>
         </motion.div>
 
