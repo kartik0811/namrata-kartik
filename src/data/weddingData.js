@@ -5,10 +5,10 @@
 
 export const couple = {
   // TODO: Replace with your names
-  partnerOne: "Kartik",
-  partnerTwo: "Namrata",
-  monogram: "K & N", // used in navbar + footer
-  hashtag: "#KartikWedsNamrata",
+  partnerOne: "Namrata",
+  partnerTwo: "Kartik",
+  monogram: "N & K", // used in navbar + footer
+  hashtag: "#NamrataWedsKartik",
 };
 
 // TODO: Replace with your wedding date & time (used by the live countdown).
@@ -102,19 +102,19 @@ export const rsvp = {
   message:
     "Your presence is the greatest gift. Kindly let us know if you'll be joining the celebration.",
   // Where the RSVP form / button should point. Could be a Google Form, mailto, etc.
-  rsvpUrl: "mailto:rsvp@example.com?subject=RSVP%20—%20Kartik%20%26%20Namrata",
+  rsvpUrl: "mailto:rsvp@example.com?subject=RSVP%20—%20Namrata%20%26%20Kartik",
   deadline: "Please RSVP by 1st January 2027",
   contacts: [
-    { name: "Kartik", phone: "+91 98765 43210" },
     { name: "Namrata", phone: "+91 91234 56780" },
+    { name: "Kartik", phone: "+91 98765 43210" },
   ],
 };
 
 // Soft flute background music. It starts automatically when the guest opens
 // the curtain (a user tap, so browser autoplay policies are satisfied).
-// TODO: Drop your own soft flute track at public/flute.mp3 (this path is
+// TODO: Drop your own soft flute track at public/blue.mp3 (this path is
 // served from the site root). To use a hosted file instead, paste its URL here.
-export const musicSrc = "/flute.mp3";
+export const musicSrc = "/blue.mp3";
 
 // TODO: Optional social / contact links shown in the footer.
 export const socials = [

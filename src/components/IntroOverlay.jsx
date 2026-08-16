@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { couple } from "../data/weddingData";
 
@@ -18,6 +18,13 @@ const velvet = {
 export default function IntroOverlay({ onFinish }) {
   const reduce = useReducedMotion();
   const [opening, setOpening] = useState(false);
+
+  // Trigger music playback when curtains are lifted
+  useEffect(() => {
+    if (opening) {
+      window.dispatchEvent(new Event("wedding:play-music"));
+    }
+  }, [opening]);
 
   const open = useCallback(() => {
     setOpening((prev) => {
