@@ -41,13 +41,13 @@ export default function Hero({ started = true }) {
     <section
       id="top"
       ref={ref}
-      className="relative flex min-h-screen items-center justify-center overflow-hidden"
+      className="relative flex min-h-[100svh] items-center justify-center overflow-hidden px-1 py-24 sm:py-28"
     >
       <Confetti triggered={allRevealed} />
       {/* Parallax gradient + image backdrop */}
       <motion.div
         style={{ y: bgY }}
-        className="absolute inset-0 -z-10 scale-110 bg-gradient-romance"
+        className="absolute inset-0 -z-10 scale-110 bg-gradient-romance [will-change:transform]"
       >
         <div
           className="absolute inset-0 bg-[length:70%_auto] bg-[center_44%] bg-no-repeat opacity-40 blur-[2px] brightness-110 saturate-110"
@@ -63,7 +63,7 @@ export default function Hero({ started = true }) {
         variants={container}
         initial="hidden"
         animate={started ? "show" : "hidden"}
-        className="relative z-10 mx-auto max-w-3xl px-6 text-center"
+        className="relative z-10 mx-auto w-full max-w-3xl px-4 text-center sm:px-6 [will-change:transform,opacity]"
       >
         <motion.p
           variants={item}
@@ -74,7 +74,7 @@ export default function Hero({ started = true }) {
 
         <motion.h1
           variants={item}
-          className="mt-6 font-script text-6xl leading-tight text-wine md:text-8xl"
+          className="mt-6 font-script text-[clamp(3.25rem,13vw,6rem)] leading-tight text-wine md:text-8xl"
         >
           {couple.partnerOne}
           <span className="mx-3 inline-block animate-heartbeat text-rose">&amp;</span>
@@ -93,7 +93,7 @@ export default function Hero({ started = true }) {
           <p className="mb-4 font-serif text-sm text-cocoa/70">
             Scratch the golden cards to reveal our date ✨
           </p>
-          <div className="flex flex-wrap items-start justify-center gap-4">
+          <div className="flex flex-wrap items-start justify-center gap-[clamp(0.5rem,3vw,1rem)]">
             <ScratchCard label="Day" value={weddingDateParts.day} threshold={0.12} onRevealed={handleCardRevealed} />
             <ScratchCard label="Month" value={weddingDateParts.month} threshold={0.12} onRevealed={handleCardRevealed} />
             <ScratchCard label="Year" value={weddingDateParts.year} threshold={0.12} onRevealed={handleCardRevealed} />

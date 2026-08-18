@@ -9,6 +9,7 @@
 
 html {
   scroll-behavior: smooth;
+  min-width: 320px;
 }
 
 body {
@@ -18,6 +19,29 @@ body {
   font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  min-width: 320px;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 640px) {
+  .glass {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}
+
+/* Promote animated decorative layers once, avoiding repeated paint work. */
+@media (prefers-reduced-motion: no-preference) {
+  .shadow-soft,
+  .shadow-glow {
+    transform: translateZ(0);
+  }
 }
 
 /* Elegant gold gradient scrollbar */

@@ -15,6 +15,8 @@ export default function ScratchCard({ label, value, threshold = 0.45, onRevealed
   const revealedRef = useRef(false);
   const lastPoint = useRef(null);
   const lastCheck = useRef(0);
+  const checkFrame = useRef(null);
+  const sizeRef = useRef({ width: 0, height: 0 });
   const [revealed, setRevealed] = useState(false);
 
   const doReveal = useCallback(() => {
@@ -31,7 +33,11 @@ export default function ScratchCard({ label, value, threshold = 0.45, onRevealed
     const w = wrap.clientWidth;
     const h = wrap.clientHeight;
     if (w === 0 || h === 0) return;
-    const dpr = window.devicePixelRatio || 1;
+    // A capped DPR keeps the tiny scratch canvases crisp without creating
+    // unnecessarily large GPU/CPU buffers on high-density phones.
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    if (sizeRef.current.width === w && sizeRef.current.height === h) return;
+    sizeRef.current = { width: w, height: h };
     canvas.width = Math.round(w * dpr);
     canvas.height = Math.round(h * dpr);
     canvas.style.width = `${w}px`;
@@ -74,27 +80,18 @@ export default function ScratchCard({ label, value, threshold = 0.45, onRevealed
   }, []);
 
   useEffect(() => {
-    let raf;
-    // Wait until the card actually has a size before drawing the foil
-    // (it mounts behind the curtain, so layout may not be ready yet).
-    const tryInit = () => {
-      const wrap = wrapRef.current;
-      if (revealedRef.current) return;
-      if (wrap && wrap.clientWidth > 0) {
-        initCanvas();
-      } else {
-        raf = requestAnimationFrame(tryInit);
-      }
-    };
-    tryInit();
-
-    const onResize = () => {
-      if (!revealedRef.current) initCanvas();
-    };
-    window.addEventListener("resize", onResize);
+    const wrap = wrapRef.current;
+    let raf = requestAnimationFrame(initCanvas);
+    const observer = wrap
+      ? new ResizeObserver(() => {
+          if (!revealedRef.current) initCanvas();
+        })
+      : null;
+    observer?.observe(wrap);
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener("resize", onResize);
+      observer?.disconnect();
+      if (checkFrame.current) cancelAnimationFrame(checkFrame.current);
     };
   }, [initCanvas]);
 
@@ -124,9 +121,12 @@ export default function ScratchCard({ label, value, threshold = 0.45, onRevealed
   // instead of on every pointer move.
   const maybeCheckProgress = () => {
     const now = performance.now();
-    if (now - lastCheck.current < 140) return;
+    if (now - lastCheck.current < 140 || checkFrame.current) return;
     lastCheck.current = now;
-    checkProgress();
+    checkFrame.current = requestAnimationFrame(() => {
+      checkFrame.current = null;
+      checkProgress();
+    });
   };
 
   const scratch = (e) => {
@@ -167,7 +167,7 @@ export default function ScratchCard({ label, value, threshold = 0.45, onRevealed
     <div className="flex flex-col items-center gap-2">
       <motion.div
         ref={wrapRef}
-        className="relative h-28 w-24 overflow-hidden rounded-2xl border border-gold/60 bg-gradient-to-br from-white/85 to-champagne/70 shadow-glow"
+        className="relative h-[clamp(6.75rem,32vw,7rem)] w-[clamp(4.75rem,25vw,6rem)] overflow-hidden rounded-2xl border border-gold/60 bg-gradient-to-br from-white/85 to-champagne/70 shadow-glow"
         whileHover={{ y: -4 }}
       >
         {/* Value revealed underneath the foil */}
