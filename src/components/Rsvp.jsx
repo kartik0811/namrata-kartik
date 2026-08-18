@@ -159,7 +159,6 @@ export default function Rsvp() {
                 </button>
 
                 {error && <p role="alert" className="text-center text-sm text-wine">{error}</p>}
-                <p className="text-center text-xs text-cocoa/60">{rsvp.deadline}</p>
               </motion.form>
             )}
           </AnimatePresence>

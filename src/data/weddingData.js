@@ -56,24 +56,27 @@ export const eventDetails = {
 export const timeline = [
   {
     icon: "🌼",
-    title: "Haldi",
+    title: "Haldi Carnival",
     date: "24th January 2027",
     time: "12:00 PM onwards",
-    description: "A joyful afternoon of turmeric hues, laughter, and blessings to begin the celebrations.",
+    description:
+      "Bring on the sunshine, the colors, and a whole lot of madness! A day of haldi, happy hearts and loud laughs!",
   },
   {
     icon: "🎶",
     title: "Tilak, Ring Ceremony & Sangeet",
     date: "24th January 2027",
     time: "7:00 PM onwards",
-    description: "An evening of cherished traditions, exchanged rings, and joyful dancing.",
+    description:
+      "From a little tilak to the rings that make it official — followed by a night of music, moves and memories. Come dressed with your dancing shoes, and ready to dance like nobody’s watching!",
   },
   {
     icon: "🔥",
-    title: "Wedding Ceremony followed by Reception",
+    title: "Baraat & The Wedding Ceremony",
     date: "25th January 2027",
     time: "3:00 PM onwards",
-    description: "A beautiful afternoon of Varmala and Pheras, followed by a joyous reception with loved ones.",
+    description:
+      "From dhol beats and dancing in the baraat to varmala, pheras and all the moments that make it official — come celebrate as two hearts, two families and one beautiful story come together!",
   },
 ];
 
@@ -93,12 +96,12 @@ export const rsvp = {
     "Your presence is the greatest gift. Kindly let us know if you'll be joining the celebration.",
   // FormSubmit relays each RSVP to this inbox. The recipient must confirm the
   // first submission once before emails are delivered.
-  submissionEndpoint: "https://formsubmit.co/ajax/kartik.thescorp@gmail.com",
-  deadline: "Please RSVP by 30th November 2026",
+  submissionEndpoint: "https://formsubmit.co/ajax/namrataj14@gmail.com",
 };
 
 // Soft flute background music. It starts automatically when the guest opens
 // the curtain (a user tap, so browser autoplay policies are satisfied).
-// TODO: Drop your own soft flute track at public/blue.mp3 (this path is
-// served from the site root). To use a hosted file instead, paste its URL here.
-export const musicSrc = "/blue.mp3";
+// TODO: Drop your own soft flute track at public/blue.mp3. Vite prepends the
+// correct base path for local, production, and GitHub Pages deployments.
+// Respect Vite's deploy base (including GitHub Pages project sites).
+export const musicSrc = `${import.meta.env.BASE_URL}blue.mp3`;

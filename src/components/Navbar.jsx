@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { couple } from "../data/weddingData";
+import logo from "../assets/nk_black-clean.png";
 
 const links = [
   { label: "Countdown", href: "#countdown" },
@@ -32,10 +33,18 @@ export default function Navbar() {
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-5">
         <a
           href="#top"
-          className="font-script text-2xl md:text-3xl text-shimmer"
+          className="block h-11 w-[clamp(5.5rem,22vw,7rem)] md:h-12"
           aria-label="Back to top"
         >
-          {couple.monogram}
+          <span
+            role="img"
+            aria-label={`${couple.partnerOne} and ${couple.partnerTwo} monogram`}
+            className="block h-full w-full bg-cocoa/80 [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain]"
+            style={{
+              maskImage: `url(${logo})`,
+              WebkitMaskImage: `url(${logo})`,
+            }}
+          />
         </a>
 
         {/* Desktop links */}

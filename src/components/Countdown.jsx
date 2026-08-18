@@ -21,7 +21,7 @@ function getRemaining(target) {
 function Counter({ value, label }) {
   const display = String(value).padStart(2, "0");
   return (
-    <div className="glass flex min-w-[84px] flex-col items-center rounded-2xl px-4 py-5 shadow-soft md:min-w-[120px] md:px-6">
+    <div className="glass flex min-w-[clamp(4.25rem,20vw,7.5rem)] flex-col items-center rounded-2xl px-[clamp(0.5rem,2vw,1.5rem)] py-5 shadow-soft">
       <div className="relative h-12 overflow-hidden md:h-16">
         <AnimatePresence mode="popLayout">
           <motion.span
@@ -55,7 +55,7 @@ export default function Countdown() {
   return (
     <section
       id="countdown"
-      className="relative overflow-hidden bg-gradient-to-br from-blush/40 via-ivory to-lavender/40 py-24"
+      className="relative overflow-hidden bg-gradient-to-br from-blush/40 via-ivory to-lavender/40 py-[clamp(4.5rem,10vw,6rem)]"
     >
       {/* Decorative floating orbs */}
       <div className="pointer-events-none absolute -left-10 top-10 h-40 w-40 rounded-full bg-rose/20 blur-3xl animate-float" />
