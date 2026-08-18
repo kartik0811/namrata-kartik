@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { couple } from "../data/weddingData";
 
@@ -19,16 +19,11 @@ export default function IntroOverlay({ onFinish }) {
   const reduce = useReducedMotion();
   const [opening, setOpening] = useState(false);
 
-  // Trigger music playback when curtains are lifted
-  useEffect(() => {
-    if (opening) {
-      window.dispatchEvent(new Event("wedding:play-music"));
-    }
-  }, [opening]);
-
   const open = useCallback(() => {
     setOpening((prev) => {
       if (prev) return prev;
+      // Keep this dispatch inside the user gesture for autoplay permission.
+      window.dispatchEvent(new Event("wedding:play-music"));
       return true;
     });
   }, []);

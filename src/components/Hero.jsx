@@ -1,5 +1,5 @@
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { useState } from "react";
 import { couple, weddingDateParts } from "../data/weddingData";
 import ScratchCard from "./ScratchCard";
 import Confetti from "./Confetti";
@@ -18,7 +18,6 @@ const item = {
 };
 
 export default function Hero({ started = true }) {
-  const ref = useRef(null);
   const reduce = useReducedMotion();
   const [revealedCards, setRevealedCards] = useState(0);
   const allRevealed = revealedCards === 3;
@@ -27,27 +26,15 @@ export default function Hero({ started = true }) {
     setRevealedCards((prev) => Math.min(prev + 1, 3));
   };
   
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-
-  // Parallax: background drifts slower, foreground content lifts + fades.
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "30%"]);
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "-20%"]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-
   return (
     <section
       id="top"
-      ref={ref}
       className="relative flex min-h-[100svh] items-center justify-center overflow-hidden px-1 py-24 sm:py-28"
     >
       <Confetti triggered={allRevealed} />
-      {/* Parallax gradient + image backdrop */}
+      {/* Static backdrop keeps scrolling on low-power mobile devices smooth. */}
       <motion.div
-        style={{ y: bgY }}
-        className="absolute inset-0 -z-10 scale-110 bg-gradient-romance [will-change:transform]"
+        className="absolute inset-0 -z-10 scale-110 bg-gradient-romance"
       >
         <div
           className="absolute inset-0 bg-[length:70%_auto] bg-[center_44%] bg-no-repeat opacity-40 blur-[2px] brightness-110 saturate-110"
@@ -59,11 +46,10 @@ export default function Hero({ started = true }) {
       </motion.div>
 
       <motion.div
-        style={{ y: contentY, opacity: contentOpacity }}
         variants={container}
         initial="hidden"
         animate={started ? "show" : "hidden"}
-        className="relative z-10 mx-auto w-full max-w-3xl px-4 text-center sm:px-6 [will-change:transform,opacity]"
+        className="relative z-10 mx-auto w-full max-w-3xl px-4 text-center sm:px-6"
       >
         <motion.p
           variants={item}

@@ -37,7 +37,9 @@ export default function Footer() {
           we can't wait to celebrate with you."
         </p>
 
-        <p className="mt-10 font-script text-2xl text-shimmer">{couple.hashtag}</p>
+        <p className="mt-10 font-serif text-3xl font-semibold italic tracking-wide text-champagne">
+          {couple.hashtag}
+        </p>
       </div>
     </footer>
   );
