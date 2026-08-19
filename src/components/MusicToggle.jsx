@@ -8,6 +8,7 @@ import { musicSrc } from "../data/weddingData";
  */
 export default function MusicToggle() {
   const audioRef = useRef(null);
+  const resumeOnVisibleRef = useRef(false);
   const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
@@ -26,8 +27,29 @@ export default function MusicToggle() {
         setPlaying(false);
       }
     };
+
+    const handleVisibilityChange = async () => {
+      if (document.hidden) {
+        resumeOnVisibleRef.current = !audio.paused;
+        audio.pause();
+        setPlaying(false);
+      } else if (resumeOnVisibleRef.current) {
+        resumeOnVisibleRef.current = false;
+        try {
+          await audio.play();
+          setPlaying(true);
+        } catch {
+          setPlaying(false);
+        }
+      }
+    };
+
     window.addEventListener("wedding:play-music", startFromCurtain);
-    return () => window.removeEventListener("wedding:play-music", startFromCurtain);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      window.removeEventListener("wedding:play-music", startFromCurtain);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, []);
 
   const toggle = async () => {
@@ -35,6 +57,7 @@ export default function MusicToggle() {
     if (!audio) return;
     try {
       if (playing) {
+        resumeOnVisibleRef.current = false;
         audio.pause();
         setPlaying(false);
       } else {

@@ -2,59 +2,56 @@ import { useMemo } from "react";
 import { motion } from "framer-motion";
 
 /**
- * Confetti burst that animates down from the top when triggered.
- * Triggers only when all scratch cards are fully revealed.
+ * Sparkle confetti triggered once all scratch cards are revealed. The count
+ * scales down on touch devices so the animation remains smooth on iPhones.
  */
 export default function Confetti({ triggered = false }) {
   const confetti = useMemo(() => {
     if (!triggered) return [];
-    
-    const shapes = ["\ud83c\udf89", "\ud83c\udf89", "\ud83c\udf89", "\ud83c\udf8a", "\u2728", "\ud83d\udcab", "\u2b50", "\ud83c\udf1f"];
-    return Array.from({ length: 90 }).map((_, i) => ({
-      id: i,
+
+    const isPhone = window.matchMedia("(max-width: 640px)").matches;
+    const isTablet = window.matchMedia("(max-width: 1024px)").matches;
+    const count = isPhone ? 22 : isTablet ? 40 : 60;
+
+    return Array.from({ length: count }).map((_, id) => ({
+      id,
       left: Math.random() * 100,
-      shape: shapes[Math.floor(Math.random() * shapes.length)],
-      size: 14 + Math.random() * 24,
-      duration: 2.5 + Math.random() * 1.5,
+      size: 15 + Math.random() * 13,
+      duration: 2.6 + Math.random() * 1.2,
       delay: Math.random() * 0.3,
-      drift: (Math.random() - 0.5) * 200,
-      rotation: Math.random() * 720,
-      opacity: 0.7 + Math.random() * 0.3,
+      drift: (Math.random() - 0.5) * 180,
+      rotation: Math.random() * 540,
+      opacity: 0.75 + Math.random() * 0.25,
     }));
   }, [triggered]);
 
   if (!triggered || confetti.length === 0) return null;
 
   return (
-    <div
-      aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-[40] overflow-hidden"
-    >
-      {confetti.map((c) => (
+    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[40] overflow-hidden">
+      {confetti.map((particle) => (
         <motion.span
-          key={c.id}
-          className="confetti absolute top-0 select-none"
+          key={particle.id}
+          className="absolute top-0 select-none"
           initial={{
-            left: `${c.left}%`,
-            opacity: c.opacity,
+            left: `${particle.left}%`,
+            opacity: particle.opacity,
             rotate: 0,
           }}
           animate={{
             opacity: 0,
-            rotate: c.rotation,
-            y: window.innerHeight + 100,
-            x: c.drift,
+            rotate: particle.rotation,
+            y: "110vh",
+            x: particle.drift,
           }}
           transition={{
-            duration: c.duration,
-            delay: c.delay,
+            duration: particle.duration,
+            delay: particle.delay,
             ease: "easeIn",
           }}
-          style={{
-            fontSize: `${c.size}px`,
-          }}
+          style={{ fontSize: `${particle.size}px` }}
         >
-          {c.shape}
+          ✨
         </motion.span>
       ))}
     </div>

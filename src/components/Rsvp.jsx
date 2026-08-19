@@ -24,6 +24,19 @@ export default function Rsvp() {
       return;
     }
 
+    const guestName = form.name.trim();
+    const nameLetters = [...guestName].filter((character) => /\p{L}/u.test(character));
+    if (!/^[\p{L}][\p{L}\s.'-]*$/u.test(guestName) || nameLetters.length < 2) {
+      setError("Please enter a name using at least two letters.");
+      return;
+    }
+
+    const guestCount = Number(form.guests);
+    if (!Number.isInteger(guestCount) || guestCount < 1 || guestCount > 10) {
+      setError("Please enter a whole number of guests between 1 and 10.");
+      return;
+    }
+
     setSubmitting(true);
     setError("");
 
@@ -37,9 +50,9 @@ export default function Rsvp() {
         body: JSON.stringify({
           _subject: `New RSVP — ${couple.partnerOne} & ${couple.partnerTwo}`,
           _template: "table",
-          Name: form.name,
+          Name: guestName,
           Attending: form.attending === "yes" ? "Joyfully accepts" : "Regretfully declines",
-          "Number of guests": form.guests,
+          "Number of guests": guestCount,
         }),
       });
 
@@ -142,6 +155,8 @@ export default function Rsvp() {
                       type="number"
                       min="1"
                       max="10"
+                      step="1"
+                      required
                       value={form.guests}
                       onChange={update}
                       className="w-full rounded-xl border border-gold/40 bg-white/70 px-4 py-3 outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/40"
