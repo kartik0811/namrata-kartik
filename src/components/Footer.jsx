@@ -33,8 +33,8 @@ export default function Footer() {
         <p className="mt-1 text-champagne/60">{eventDetails.venue}, Kanpur</p>
 
         <p className="mx-auto mt-8 max-w-md font-serif text-lg italic text-champagne/85">
-          "And so the adventure begins. Thank you for being part of our story —
-          we can't wait to celebrate with you."
+          And so the adventure begins. Thank you for being part of our story —
+          we can't wait to celebrate with you.
         </p>
 
         <p className="mt-10 font-serif text-3xl font-semibold italic tracking-wide text-champagne">

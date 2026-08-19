@@ -21,7 +21,7 @@ function getRemaining(target) {
 function Counter({ value, label }) {
   const display = String(value).padStart(2, "0");
   return (
-    <div className="glass flex min-w-[clamp(4.25rem,20vw,7.5rem)] flex-col items-center rounded-2xl px-[clamp(0.5rem,2vw,1.5rem)] py-5 shadow-soft">
+    <div className="flex min-w-[clamp(4.25rem,20vw,7.5rem)] flex-col items-center rounded-2xl border border-gold/25 bg-wine px-[clamp(0.5rem,2vw,1.5rem)] py-5 shadow-soft">
       <div className="relative h-12 overflow-hidden md:h-16">
         <AnimatePresence mode="popLayout">
           <motion.span
@@ -30,13 +30,13 @@ function Counter({ value, label }) {
             animate={{ y: "0%", opacity: 1 }}
             exit={{ y: "-100%", opacity: 0 }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="block font-serif text-4xl font-semibold text-shimmer md:text-6xl"
+            className="block font-serif text-4xl font-semibold text-champagne md:text-6xl"
           >
             {display}
           </motion.span>
         </AnimatePresence>
       </div>
-      <span className="mt-1 font-sans text-[0.65rem] uppercase tracking-[0.25em] text-cocoa/70 md:text-xs">
+      <span className="mt-1 font-sans text-[0.65rem] uppercase tracking-[0.25em] text-champagne/85 md:text-xs">
         {label}
       </span>
     </div>
@@ -63,8 +63,8 @@ export default function Countdown() {
 
       <div className="relative mx-auto max-w-4xl px-6 text-center">
         <SectionReveal>
-          <p className="font-script text-3xl text-rose">Counting down</p>
-          <h2 className="section-title mt-1">Until We Say "I Do"</h2>
+          <p className="font-script text-3xl text-rose">Counting down to</p>
+          <h2 className="section-title mt-1">Mr. &amp; Mrs.</h2>
           <Divider className="mt-4" />
         </SectionReveal>
 

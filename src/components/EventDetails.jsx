@@ -63,7 +63,7 @@ export default function EventDetails() {
                 playsInline
                 preload="metadata"
                 aria-label="A preview of Blueworld Castles"
-                className="absolute inset-0 h-full w-full object-cover brightness-125 contrast-105 saturate-110"
+                className="absolute inset-0 h-full w-full object-contain brightness-125 contrast-105 saturate-110 sm:object-cover"
               />
             </div>
 

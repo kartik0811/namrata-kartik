@@ -90,11 +90,11 @@ export default function Rsvp() {
                 key="thanks"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="glass rounded-3xl p-10 shadow-soft"
+                className="rounded-3xl border border-gold/25 bg-wine p-10 shadow-soft"
               >
                 <div className="text-5xl animate-heartbeat">💛</div>
-                <h3 className="mt-4 font-script text-3xl text-wine">Thank you!</h3>
-                <p className="mt-2 text-cocoa/75">
+                <h3 className="mt-4 font-script text-3xl text-champagne">Thank you!</h3>
+                <p className="mt-2 text-champagne/90">
                   Your response means the world to us. See you at the celebration!
                 </p>
               </motion.div>
@@ -104,7 +104,7 @@ export default function Rsvp() {
                 onSubmit={handleSubmit}
                 initial={{ opacity: 1 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="glass space-y-5 rounded-3xl p-8 text-left shadow-soft"
+                className="space-y-5 rounded-3xl border border-gold/25 bg-wine p-8 text-left shadow-soft"
               >
                 <input
                   type="text"
@@ -115,7 +115,7 @@ export default function Rsvp() {
                   aria-hidden="true"
                 />
                 <div>
-                  <label htmlFor="name" className="mb-1 block text-sm font-medium text-cocoa">
+                  <label htmlFor="name" className="mb-1 block text-sm font-medium text-champagne">
                     Your Name
                   </label>
                   <input
@@ -124,14 +124,14 @@ export default function Rsvp() {
                     required
                     value={form.name}
                     onChange={update}
-                    placeholder="e.g. Priya Sharma"
-                    className="w-full rounded-xl border border-gold/40 bg-white/70 px-4 py-3 outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/40"
+
+                    className="w-full rounded-xl border border-gold/40 bg-ivory px-4 py-3 text-cocoa outline-none transition placeholder:text-cocoa/55 focus:border-gold focus:ring-2 focus:ring-gold/40"
                   />
                 </div>
 
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div>
-                    <label htmlFor="attending" className="mb-1 block text-sm font-medium text-cocoa">
+                    <label htmlFor="attending" className="mb-1 block text-sm font-medium text-champagne">
                       Attending?
                     </label>
                     <select
@@ -139,14 +139,14 @@ export default function Rsvp() {
                       name="attending"
                       value={form.attending}
                       onChange={update}
-                      className="w-full rounded-xl border border-gold/40 bg-white/70 px-4 py-3 outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/40"
+                      className="w-full rounded-xl border border-gold/40 bg-ivory px-4 py-3 text-cocoa outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/40"
                     >
                       <option value="yes">Joyfully accepts 🎉</option>
                       <option value="no">Regretfully declines</option>
                     </select>
                   </div>
                   <div>
-                    <label htmlFor="guests" className="mb-1 block text-sm font-medium text-cocoa">
+                    <label htmlFor="guests" className="mb-1 block text-sm font-medium text-champagne">
                       Number of Guests
                     </label>
                     <input
@@ -159,7 +159,7 @@ export default function Rsvp() {
                       required
                       value={form.guests}
                       onChange={update}
-                      className="w-full rounded-xl border border-gold/40 bg-white/70 px-4 py-3 outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/40"
+                      className="w-full rounded-xl border border-gold/40 bg-ivory px-4 py-3 text-cocoa outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/40"
                     />
                   </div>
                 </div>
@@ -167,13 +167,13 @@ export default function Rsvp() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="group relative w-full overflow-hidden rounded-full bg-gradient-gold py-3.5 font-medium text-white shadow-glow transition-transform hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:scale-100"
+                  className="group relative w-full overflow-hidden rounded-full bg-champagne py-3.5 font-medium text-wine shadow-glow transition-transform hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:scale-100"
                 >
                   <span className="relative z-10">{submitting ? "Sending RSVP…" : "Send RSVP 💌"}</span>
                   <span className="absolute inset-0 -translate-x-full bg-white/30 transition-transform duration-500 group-hover:translate-x-0" />
                 </button>
 
-                {error && <p role="alert" className="text-center text-sm text-wine">{error}</p>}
+                {error && <p role="alert" className="text-center text-sm text-champagne">{error}</p>}
               </motion.form>
             )}
           </AnimatePresence>

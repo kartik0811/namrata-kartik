@@ -7,7 +7,13 @@ import { motion } from "framer-motion";
  * scratched away the card auto-reveals with a soft fade. The value stays
  * hidden until the guest actually scratches it.
  */
-export default function ScratchCard({ label, value, threshold = 0.45, onRevealed }) {
+export default function ScratchCard({
+  label,
+  value,
+  threshold = 0.45,
+  onRevealed,
+  valueClassName = "font-serif text-4xl font-bold",
+}) {
   const wrapRef = useRef(null);
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
@@ -73,10 +79,10 @@ export default function ScratchCard({ label, value, threshold = 0.45, onRevealed
     // Hint text
     ctx.fillStyle = "rgba(122,80,10,0.6)";
     ctx.textAlign = "center";
-    ctx.font = "600 11px 'Cormorant Garamond', serif";
+    ctx.font = "600 14px 'Cormorant Garamond', serif";
     ctx.fillText("SCRATCH", w / 2, h / 2 - 4);
-    ctx.font = "600 12px serif";
-    ctx.fillText("✦ ✦ ✦", w / 2, h / 2 + 14);
+    ctx.font = "600 13px serif";
+    ctx.fillText("✦ ✦ ✦", w / 2, h / 2 + 18);
 
     // Everything drawn after this fully erases the foil (solid alpha so the
     // pixels reach 0 alpha and the reveal threshold can be reached).
@@ -179,12 +185,14 @@ export default function ScratchCard({ label, value, threshold = 0.45, onRevealed
     <div className="flex flex-col items-center gap-2">
       <motion.div
         ref={wrapRef}
-        className="relative h-[clamp(6.75rem,32vw,7rem)] w-[clamp(4.75rem,25vw,6rem)] overflow-hidden rounded-2xl border border-gold/60 bg-gradient-to-br from-white/85 to-champagne/70 shadow-glow"
+        className="relative h-28 w-20 shrink-0 overflow-hidden rounded-2xl border border-gold/60 bg-gradient-to-br from-white/85 to-champagne/70 shadow-glow sm:w-24"
         whileHover={{ y: -4 }}
       >
         {/* Value revealed underneath the foil */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="font-pacifico italic text-4xl text-wine">{value}</span>
+          <span className={`${valueClassName} min-w-full whitespace-nowrap text-center leading-none tabular-nums text-wine`}>
+            {value}
+          </span>
         </div>
 
         {/* Gold foil to scratch away */}
@@ -201,7 +209,7 @@ export default function ScratchCard({ label, value, threshold = 0.45, onRevealed
           aria-hidden="true"
         />
       </motion.div>
-      <span className="font-serif text-xs uppercase tracking-[0.25em] text-cocoa/70">
+      <span className="font-serif text-sm uppercase tracking-[0.2em] text-cocoa/70">
         {label}
       </span>
     </div>

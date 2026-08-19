@@ -51,9 +51,9 @@ export default function Hero({ started = true }) {
       >
         <motion.p
           variants={item}
-          className="font-serif tracking-[0.5em] text-goldDark uppercase text-xs md:text-sm"
+          className="font-serif text-xl font-bold text-cocoa/80 md:text-2xl"
         >
-          Together with their families
+          For the wedding celebrations of
         </motion.p>
 
         <motion.h1
@@ -61,25 +61,22 @@ export default function Hero({ started = true }) {
           className="mt-6 font-script text-[clamp(3.25rem,13vw,6rem)] leading-tight text-wine md:text-8xl"
         >
           {couple.partnerOne}
-          <span className="mx-3 inline-block animate-heartbeat text-rose">&amp;</span>
+          <span className="mx-5 inline-block animate-heartbeat text-[0.6em] text-wine md:mx-7">&amp;</span>
           {couple.partnerTwo}
         </motion.h1>
 
-        <motion.div variants={item} className="my-6 flex items-center justify-center gap-4">
-          <span className="h-px w-14 bg-gold/60" />
-          <h2 className="font-serif text-xl uppercase tracking-[0.35em] text-cocoa/80 md:text-2xl">
-            Save the Date
-          </h2>
-          <span className="h-px w-14 bg-gold/60" />
-        </motion.div>
-
         <motion.div variants={item} className="mt-10">
-          <p className="mb-4 font-serif text-sm text-cocoa/70">
+          <p className="mb-5 font-serif text-lg font-medium text-cocoa/70 md:text-xl">
             Scratch the golden cards to reveal our date ✨
           </p>
           <div className="flex flex-wrap items-start justify-center gap-[clamp(0.5rem,3vw,1rem)]">
             <ScratchCard label="Day" value={weddingDateParts.day} threshold={0.12} onRevealed={handleCardRevealed} />
-            <ScratchCard label="Month" value={weddingDateParts.month} threshold={0.12} onRevealed={handleCardRevealed} />
+            <ScratchCard
+              label="Month"
+              value={weddingDateParts.month}
+              threshold={0.12}
+              onRevealed={handleCardRevealed}
+            />
             <ScratchCard label="Year" value={weddingDateParts.year} threshold={0.12} onRevealed={handleCardRevealed} />
           </div>
         </motion.div>
