@@ -14,9 +14,8 @@ export default function ScratchCard({ label, value, threshold = 0.45, onRevealed
   const drawing = useRef(false);
   const revealedRef = useRef(false);
   const lastPoint = useRef(null);
-  const lastCheck = useRef(0);
-  const checkFrame = useRef(null);
   const sizeRef = useRef({ width: 0, height: 0 });
+  const coverageRef = useRef({ cells: new Set(), columns: 0, rows: 0, cellSize: 8 });
   const [revealed, setRevealed] = useState(false);
 
   const doReveal = useCallback(() => {
@@ -38,12 +37,19 @@ export default function ScratchCard({ label, value, threshold = 0.45, onRevealed
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     if (sizeRef.current.width === w && sizeRef.current.height === h) return;
     sizeRef.current = { width: w, height: h };
+    const cellSize = 8;
+    coverageRef.current = {
+      cells: new Set(),
+      columns: Math.ceil(w / cellSize),
+      rows: Math.ceil(h / cellSize),
+      cellSize,
+    };
     canvas.width = Math.round(w * dpr);
     canvas.height = Math.round(h * dpr);
     canvas.style.width = `${w}px`;
     canvas.style.height = `${h}px`;
 
-    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    const ctx = canvas.getContext("2d");
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.globalCompositeOperation = "source-over";
 
@@ -91,42 +97,38 @@ export default function ScratchCard({ label, value, threshold = 0.45, onRevealed
     return () => {
       cancelAnimationFrame(raf);
       observer?.disconnect();
-      if (checkFrame.current) cancelAnimationFrame(checkFrame.current);
     };
   }, [initCanvas]);
 
   const pointerPos = (e) => {
     const rect = canvasRef.current.getBoundingClientRect();
-    const point = e.touches ? e.touches[0] : e;
-    return { x: point.clientX - rect.left, y: point.clientY - rect.top };
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
   };
 
-  const checkProgress = () => {
-    const canvas = canvasRef.current;
-    const ctx = ctxRef.current;
-    if (!canvas || !ctx) return;
-    const { width, height } = canvas;
-    const data = ctx.getImageData(0, 0, width, height).data;
-    let clear = 0;
-    let samples = 0;
-    const step = 32; // sample every 32nd pixel for performance
-    for (let i = 3; i < data.length; i += 4 * step) {
-      samples++;
-      if (data[i] === 0) clear++;
+  // Track the cells touched by the brush instead of reading canvas pixels.
+  // This avoids repeated GPU-to-CPU readbacks, which are particularly costly
+  // during touch drags on iPhones.
+  const markScratchCoverage = (x, y) => {
+    const { cells, columns, rows, cellSize } = coverageRef.current;
+    if (!columns || !rows) return;
+
+    const brushRadius = 17;
+    const startColumn = Math.max(0, Math.floor((x - brushRadius) / cellSize));
+    const endColumn = Math.min(columns - 1, Math.floor((x + brushRadius) / cellSize));
+    const startRow = Math.max(0, Math.floor((y - brushRadius) / cellSize));
+    const endRow = Math.min(rows - 1, Math.floor((y + brushRadius) / cellSize));
+
+    for (let row = startRow; row <= endRow; row++) {
+      for (let column = startColumn; column <= endColumn; column++) {
+        const centerX = (column + 0.5) * cellSize;
+        const centerY = (row + 0.5) * cellSize;
+        if (Math.hypot(centerX - x, centerY - y) <= brushRadius) {
+          cells.add(row * columns + column);
+        }
+      }
     }
-    if (samples > 0 && clear / samples > threshold) doReveal();
-  };
 
-  // getImageData is a costly GPU→CPU readback, so only sample occasionally
-  // instead of on every pointer move.
-  const maybeCheckProgress = () => {
-    const now = performance.now();
-    if (now - lastCheck.current < 140 || checkFrame.current) return;
-    lastCheck.current = now;
-    checkFrame.current = requestAnimationFrame(() => {
-      checkFrame.current = null;
-      checkProgress();
-    });
+    if (cells.size / (columns * rows) >= threshold) doReveal();
   };
 
   const scratch = (e) => {
@@ -148,17 +150,27 @@ export default function ScratchCard({ label, value, threshold = 0.45, onRevealed
     ctx.arc(x, y, 17, 0, Math.PI * 2);
     ctx.fill();
 
+    const distance = Math.hypot(x - last.x, y - last.y);
+    const steps = Math.max(1, Math.ceil(distance / 8));
+    for (let step = 0; step <= steps; step++) {
+      const progress = step / steps;
+      markScratchCoverage(last.x + (x - last.x) * progress, last.y + (y - last.y) * progress);
+    }
+
     lastPoint.current = { x, y };
-    maybeCheckProgress();
   };
 
   const start = (e) => {
     if (revealedRef.current) return;
+    e.currentTarget.setPointerCapture?.(e.pointerId);
     drawing.current = true;
     lastPoint.current = pointerPos(e);
     scratch(e);
   };
-  const end = () => {
+  const end = (e) => {
+    if (e?.currentTarget?.hasPointerCapture?.(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
     drawing.current = false;
     lastPoint.current = null;
   };
@@ -179,13 +191,10 @@ export default function ScratchCard({ label, value, threshold = 0.45, onRevealed
         <motion.canvas
           ref={canvasRef}
           className="absolute inset-0 h-full w-full cursor-pointer touch-none select-none"
-          onMouseDown={start}
-          onMouseMove={scratch}
-          onMouseUp={end}
-          onMouseLeave={end}
-          onTouchStart={start}
-          onTouchMove={scratch}
-          onTouchEnd={end}
+          onPointerDown={start}
+          onPointerMove={scratch}
+          onPointerUp={end}
+          onPointerCancel={end}
           animate={{ opacity: revealed ? 0 : 1, scale: revealed ? 1.08 : 1 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
           style={{ pointerEvents: revealed ? "none" : "auto" }}

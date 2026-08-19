@@ -96,7 +96,7 @@ export const rsvp = {
     "Your presence is the greatest gift. Kindly let us know if you'll be joining the celebration.",
   // FormSubmit relays each RSVP to this inbox. The recipient must confirm the
   // first submission once before emails are delivered.
-  submissionEndpoint: "https://formsubmit.co/ajax/namrataj14@gmail.com",
+  submissionEndpoint: "https://formsubmit.co/ajax/namratakartik25@gmail.com",
 };
 
 // Soft flute background music. It starts automatically when the guest opens

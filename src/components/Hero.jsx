@@ -33,17 +33,15 @@ export default function Hero({ started = true }) {
     >
       <Confetti triggered={allRevealed} />
       {/* Static backdrop keeps scrolling on low-power mobile devices smooth. */}
-      <motion.div
-        className="absolute inset-0 -z-10 scale-110 bg-gradient-romance"
-      >
+      <div className="absolute inset-0 -z-10 scale-110 bg-gradient-romance">
         <div
-          className="absolute inset-0 bg-[length:70%_auto] bg-[center_44%] bg-no-repeat opacity-40 blur-[2px] brightness-110 saturate-110"
+          className="absolute inset-0 bg-[length:70%_auto] bg-[center_44%] bg-no-repeat opacity-40 brightness-110 saturate-110 sm:blur-[2px]"
           style={{ backgroundImage: `url(${dpImage})` }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-ivory/20 via-transparent to-blush/35" />
         {/* Soft radial glow */}
-        <div className="absolute left-1/2 top-1/2 h-[70vh] w-[70vh] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/20 blur-3xl" />
-      </motion.div>
+        <div className="absolute left-1/2 top-1/2 h-[50vh] w-[50vh] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/20 blur-2xl sm:h-[70vh] sm:w-[70vh] sm:blur-3xl" />
+      </div>
 
       <motion.div
         variants={container}
