@@ -83,7 +83,7 @@ export default function IntroOverlay({ onFinish }) {
         <h1 className="mt-4 font-script text-5xl text-champagne drop-shadow-lg md:text-7xl">
           {couple.partnerOne} &amp; {couple.partnerTwo}
         </h1>
-        <p className="mt-3 font-serif text-xs uppercase tracking-[0.4em] text-champagne/80 md:text-sm">
+        <p className="mt-4 font-serif text-xl font-bold uppercase tracking-[0.3em] text-champagne/80 md:text-2xl">
           Save the Date
         </p>
         <motion.p

@@ -58,25 +58,22 @@ export const timeline = [
     icon: "🌼",
     title: "Haldi Carnival",
     date: "24th January 2027",
-    time: "12:00 PM onwards",
     description:
-      "Bring on the sunshine, the colors, and a whole lot of madness! A day of haldi, happy hearts and loud laughs!",
+      "Bring on the sunshine, the vibrant colors, and a whole lot of madness! A day of haldi, happy hearts and loud laughs!",
   },
   {
     icon: "🎶",
     title: "Tilak, Ring Ceremony & Sangeet",
     date: "24th January 2027",
-    time: "7:00 PM onwards",
     description:
-      "From a little tilak to the rings that make it official — followed by a night of music, moves and memories. Come dressed with your dancing shoes, and ready to dance like nobody’s watching!",
+      "From a little tilak to the rings that make it official, followed by a night of music, moves and memories. Come dressed with your dancing shoes, and be ready to dance like nobody’s watching!",
   },
   {
     icon: "🔥",
     title: "Baraat & The Wedding Ceremony",
     date: "25th January 2027",
-    time: "3:00 PM onwards",
     description:
-      "From dhol beats and dancing in the baraat to varmala, pheras and all the moments that make it official — come celebrate as two hearts, two families and one beautiful story come together!",
+      "From the dhol beats and dancing in the baraat to the varmala and pheras — come celebrate as two hearts, two families and one beautiful story come together!",
   },
 ];
 

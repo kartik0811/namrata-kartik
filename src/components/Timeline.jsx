@@ -54,15 +54,15 @@ export default function Timeline() {
                     viewport={{ once: true, amount: 0.4 }}
                     transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                     whileHover={{ scale: 1.02 }}
-                    className={`glass ml-12 rounded-2xl p-6 shadow-soft md:ml-0 md:w-[45%] ${
+                    className={`ml-12 rounded-2xl border border-gold/25 bg-wine p-6 shadow-soft md:ml-0 md:w-[45%] ${
                       left ? "md:mr-auto md:text-right" : "md:ml-auto"
                     }`}
                   >
-                    <span className="font-sans text-xs uppercase tracking-[0.25em] text-goldDark">
-                      {e.date} · {e.time}
+                    <span className="font-sans text-xs uppercase tracking-[0.25em] text-champagne/90">
+                      {e.date}{e.time ? ` · ${e.time}` : ""}
                     </span>
-                    <h3 className="mt-1 font-serif text-2xl text-wine">{e.title}</h3>
-                    <p className="mt-2 text-cocoa/75">{e.description}</p>
+                    <h3 className="mt-1 font-serif text-2xl font-bold text-ivory">{e.title}</h3>
+                    <p className="mt-2 text-champagne/90">{e.description}</p>
                   </motion.div>
                 </li>
               );
