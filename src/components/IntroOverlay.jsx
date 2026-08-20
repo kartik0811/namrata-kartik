@@ -50,7 +50,7 @@ export default function IntroOverlay({ onFinish }) {
       onAnimationComplete={() => {
         if (opening) onFinish();
       }}
-      style={{ pointerEvents: opening ? "none" : "auto" }}
+      style={{ pointerEvents: opening ? "none" : "auto", willChange: "opacity" }}
       onClick={open}
       onKeyDown={onKeyDown}
       role="button"
@@ -60,7 +60,7 @@ export default function IntroOverlay({ onFinish }) {
       {/* Left curtain - opens first */}
       <motion.div
         className="absolute inset-y-0 left-0 w-1/2 origin-left"
-        style={velvet}
+        style={{ ...velvet, willChange: "transform" }}
         initial={{ x: 0 }}
         animate={{ x: opening ? "-100%" : 0 }}
         transition={{ duration: curtainDuration, ease: [0.25, 0.46, 0.45, 0.94], delay: opening ? 0 : 0 }}
@@ -68,7 +68,7 @@ export default function IntroOverlay({ onFinish }) {
       {/* Right curtain - slight delay for flowing effect */}
       <motion.div
         className="absolute inset-y-0 right-0 w-1/2 origin-right"
-        style={velvet}
+        style={{ ...velvet, willChange: "transform" }}
         initial={{ x: 0 }}
         animate={{ x: opening ? "100%" : 0 }}
         transition={{ duration: curtainDuration, ease: [0.25, 0.46, 0.45, 0.94], delay: opening ? 0.08 : 0 }}

@@ -61,7 +61,7 @@ export default function EventDetails() {
                 loop
                 muted
                 playsInline
-                preload="metadata"
+                preload="none"
                 aria-label="A preview of Blueworld Castles"
                 className="absolute inset-0 h-full w-full object-contain brightness-125 contrast-105 saturate-110 sm:object-cover"
               />

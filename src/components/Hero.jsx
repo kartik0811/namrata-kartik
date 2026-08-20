@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { couple, weddingDateParts } from "../data/weddingData";
 import ScratchCard from "./ScratchCard";
 import Confetti from "./Confetti";
@@ -20,7 +20,16 @@ const item = {
 export default function Hero({ started = true }) {
   const reduce = useReducedMotion();
   const [revealedCards, setRevealedCards] = useState(0);
+  const [showConfetti, setShowConfetti] = useState(false);
   const allRevealed = revealedCards === 3;
+
+  // Let the final card's reveal paint before mounting the confetti animation.
+  // This avoids a burst of layout/compositing work in the same frame on phones.
+  useEffect(() => {
+    if (!allRevealed) return undefined;
+    const timer = window.setTimeout(() => setShowConfetti(true), 120);
+    return () => window.clearTimeout(timer);
+  }, [allRevealed]);
   
   const handleCardRevealed = () => {
     setRevealedCards((prev) => Math.min(prev + 1, 3));
@@ -31,11 +40,11 @@ export default function Hero({ started = true }) {
       id="top"
       className="relative flex min-h-[100svh] items-center justify-center overflow-hidden px-1 py-24 sm:py-28"
     >
-      <Confetti triggered={allRevealed} />
+      <Confetti triggered={showConfetti} />
       {/* Static backdrop keeps scrolling on low-power mobile devices smooth. */}
       <div className="absolute inset-0 -z-10 scale-110 bg-gradient-romance">
         <div
-          className="absolute inset-0 bg-[length:70%_auto] bg-[center_44%] bg-no-repeat opacity-40 brightness-110 saturate-110 sm:blur-[2px]"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40 brightness-110 saturate-110 sm:bg-[length:70%_auto] sm:bg-[center_44%] sm:blur-[2px]"
           style={{ backgroundImage: `url(${dpImage})` }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-ivory/20 via-transparent to-blush/35" />

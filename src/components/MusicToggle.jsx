@@ -73,7 +73,7 @@ export default function MusicToggle() {
   return (
     <>
       {/* TODO: swap musicSrc in weddingData.js for your own track */}
-      <audio ref={audioRef} src={musicSrc} preload="auto" playsInline />
+      <audio ref={audioRef} src={musicSrc} preload="metadata" playsInline />
 
       <motion.button
         onClick={toggle}

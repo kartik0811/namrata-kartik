@@ -1,17 +1,19 @@
 import { useMemo } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 /**
  * Sparkle confetti triggered once all scratch cards are revealed. The count
  * scales down on touch devices so the animation remains smooth on iPhones.
  */
 export default function Confetti({ triggered = false }) {
+  const reduce = useReducedMotion();
   const confetti = useMemo(() => {
-    if (!triggered) return [];
+    if (!triggered || reduce) return [];
 
     const isPhone = window.matchMedia("(max-width: 640px)").matches;
     const isTablet = window.matchMedia("(max-width: 1024px)").matches;
-    const count = isPhone ? 22 : isTablet ? 40 : 60;
+    const lowPowerDevice = (navigator.hardwareConcurrency || 4) <= 4;
+    const count = isPhone ? (lowPowerDevice ? 8 : 12) : isTablet ? 24 : 40;
 
     return Array.from({ length: count }).map((_, id) => ({
       id,
@@ -23,7 +25,7 @@ export default function Confetti({ triggered = false }) {
       rotation: Math.random() * 540,
       opacity: 0.75 + Math.random() * 0.25,
     }));
-  }, [triggered]);
+  }, [reduce, triggered]);
 
   if (!triggered || confetti.length === 0) return null;
 
