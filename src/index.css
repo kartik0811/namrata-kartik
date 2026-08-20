@@ -23,6 +23,36 @@ body {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
+/* CSS animation keeps emoji motion on the compositor after their first paint. */
+.confetti-sparkle {
+  position: absolute;
+  top: -24px;
+  left: var(--confetti-left);
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  font-size: var(--confetti-size);
+  line-height: 1;
+  opacity: 0;
+  contain: layout paint;
+  will-change: transform, opacity;
+  animation: confetti-fall var(--confetti-duration) linear var(--confetti-delay) forwards;
+}
+
+@keyframes confetti-fall {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -12px, 0) rotate(0deg);
+  }
+
+  12% {
+    opacity: var(--confetti-opacity);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--confetti-drift), 110svh, 0) rotate(var(--confetti-rotation));
+  }
+}
+
 img,
 video {
   max-width: 100%;
