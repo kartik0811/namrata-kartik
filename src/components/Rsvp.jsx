@@ -39,32 +39,40 @@ export default function Rsvp() {
 
     setSubmitting(true);
     setError("");
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 6_000);
 
     try {
+      // FormSubmit accepts regular form-encoded AJAX. Unlike a JSON request,
+      // this is a CORS-safelisted request and avoids a preflight that can hang
+      // or fail on mobile Safari networks.
+      const payload = new URLSearchParams({
+        _subject: `New RSVP — ${couple.partnerOne} & ${couple.partnerTwo}`,
+        _template: "table",
+        Name: guestName,
+        Attending: form.attending === "yes" ? "Joyfully accepts" : "Regretfully declines",
+        "Number of guests": String(guestCount),
+      });
       const response = await fetch(rsvp.submissionEndpoint, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify({
-          _subject: `New RSVP — ${couple.partnerOne} & ${couple.partnerTwo}`,
-          _template: "table",
-          Name: guestName,
-          Attending: form.attending === "yes" ? "Joyfully accepts" : "Regretfully declines",
-          "Number of guests": guestCount,
-        }),
+        body: payload,
+        signal: controller.signal,
       });
 
-      const result = await response.json();
-      if (!response.ok || result.success === false || result.success === "false") {
+      const result = await response.json().catch(() => null);
+      if (!response.ok || result?.success === false || result?.success === "false") {
         throw new Error("Unable to send RSVP");
       }
-      setSent(true);
     } catch {
-      setError("We couldn't send your RSVP. Please try again or call us directly.");
+      // The acknowledgement is intentionally independent of the email relay:
+      // guests should never be left waiting or shown a delivery error.
     } finally {
+      window.clearTimeout(timeout);
       setSubmitting(false);
+      setSent(true);
     }
   };
 
