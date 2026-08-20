@@ -3,7 +3,7 @@ import { motion, useReducedMotion } from "framer-motion";
 
 /**
  * Sparkle confetti triggered once all scratch cards are revealed. The count
- * scales down on touch devices so the animation remains smooth on iPhones.
+ * scales down on smaller or lower-power devices so the animation stays smooth.
  */
 export default function Confetti({ triggered = false }) {
   const reduce = useReducedMotion();
@@ -13,7 +13,19 @@ export default function Confetti({ triggered = false }) {
     const isPhone = window.matchMedia("(max-width: 640px)").matches;
     const isTablet = window.matchMedia("(max-width: 1024px)").matches;
     const lowPowerDevice = (navigator.hardwareConcurrency || 4) <= 4;
-    const count = isPhone ? (lowPowerDevice ? 8 : 12) : isTablet ? 24 : 40;
+    // Add a little more celebration on devices with headroom, while keeping the
+    // existing density on lower-power tablets and desktops.
+    const count = isPhone
+      ? lowPowerDevice
+        ? 10
+        : 15
+      : isTablet
+        ? lowPowerDevice
+          ? 24
+          : 30
+        : lowPowerDevice
+          ? 40
+          : 50;
 
     return Array.from({ length: count }).map((_, id) => ({
       id,
