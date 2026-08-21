@@ -3,7 +3,7 @@ import { useReducedMotion } from "framer-motion";
 
 /**
  * Sparkle confetti triggered once all scratch cards are revealed. Emoji glyphs
- * are deliberately sparse on phones, where they are more expensive to paint.
+ * scale to the available device headroom so phones remain smooth.
  */
 export default function Confetti({ triggered = false }) {
   const reduce = useReducedMotion();
@@ -20,23 +20,23 @@ export default function Confetti({ triggered = false }) {
     const isTablet = window.matchMedia("(max-width: 1024px)").matches;
     const deviceMemory = navigator.deviceMemory || 4;
     const lowPowerDevice = (navigator.hardwareConcurrency || 4) <= 4 || deviceMemory <= 4;
-    // Emoji glyphs cost more to render than simple shapes. Keep the burst small
-    // on phones and spread it over a few frames to avoid a visible hitch.
+    // Emoji glyphs cost more to render than simple shapes. The CSS-only motion
+    // and brief stagger let us use a fuller burst without a frame-time spike.
     const count = isPhone
       ? lowPowerDevice
-        ? 6
-        : 8
+        ? 13
+        : 16
       : isTablet
         ? lowPowerDevice
-          ? 16
-          : 24
+          ? 20
+          : 28
         : lowPowerDevice
-          ? 28
-          : 40;
+          ? 32
+          : 44;
 
     const particles = Array.from({ length: count }).map((_, id) => {
       const duration = 4.4 + Math.random() * 1.6;
-      const delay = Math.random() * (isPhone ? 0.5 : 0.3);
+      const delay = Math.random() * (isPhone ? 0.75 : 0.3);
 
       return {
         id,
