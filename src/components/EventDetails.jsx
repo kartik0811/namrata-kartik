@@ -4,6 +4,8 @@ import Divider from "./Divider";
 import { eventDetails } from "../data/weddingData";
 import venueVideo from "../../venue.mp4";
 
+const venueImage = `${import.meta.env.BASE_URL}venue.jpg`;
+
 function createGoogleCalendarUrl() {
   const params = new URLSearchParams({
     action: "TEMPLATE",
@@ -22,12 +24,18 @@ export default function EventDetails() {
   const videoRef = useRef(null);
   const videoVisibleRef = useRef(false);
   const [videoFailed, setVideoFailed] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
   const googleCalendarUrl = createGoogleCalendarUrl();
 
   useEffect(() => {
     const section = sectionRef.current;
     const video = videoRef.current;
     if (!section || !video) return undefined;
+
+    // Start buffering on page load, well before this section is in view.
+    // `preload` is only a browser hint, so explicitly loading makes the intent
+    // clear to mobile browsers that honour it.
+    video.load();
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -51,11 +59,13 @@ export default function EventDetails() {
     if (!video) return;
 
     setVideoFailed(false);
+    setVideoReady(false);
     video.load();
   };
 
   const handleCanPlay = () => {
     setVideoFailed(false);
+    setVideoReady(true);
     if (videoVisibleRef.current) videoRef.current?.play().catch(() => {});
   };
 
@@ -71,28 +81,38 @@ export default function EventDetails() {
         <SectionReveal delay={0.15} className="mt-14">
           <div className="overflow-hidden rounded-[2rem] bg-wine shadow-soft">
             <div className="relative aspect-video overflow-hidden sm:aspect-auto sm:min-h-[34rem] lg:min-h-[38rem]">
+              <img
+                src={venueImage}
+                alt="Blueworld Castles at dusk"
+                className="absolute inset-0 h-full w-full object-cover object-center"
+              />
               <video
                 ref={videoRef}
                 src={venueVideo}
                 loop
                 muted
                 playsInline
-                preload="metadata"
-                poster={`${import.meta.env.BASE_URL}venue.jpg`}
+                preload="auto"
+                poster={venueImage}
                 aria-label="A preview of Blueworld Castles"
-                className="absolute inset-0 h-full w-full origin-top scale-[1.15] object-cover object-top brightness-125 contrast-105 saturate-110 sm:scale-100 sm:object-center"
+                className={`absolute inset-0 h-full w-full origin-top scale-[1.15] object-cover object-top brightness-125 contrast-105 saturate-110 transition-opacity duration-300 sm:scale-100 sm:object-center ${
+                  videoReady && !videoFailed ? "opacity-100" : "opacity-0"
+                }`}
                 onCanPlay={handleCanPlay}
-                onError={() => setVideoFailed(true)}
+                onError={() => {
+                  setVideoReady(false);
+                  setVideoFailed(true);
+                }}
               />
               {videoFailed && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-wine/65 px-6 text-center text-champagne">
-                  <p className="font-serif text-lg">Unable to load the venue video.</p>
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-wine/80 px-4 py-2 text-center text-sm text-champagne">
+                  <p>Showing venue photo.</p>
                   <button
                     type="button"
                     onClick={retryVideo}
-                    className="rounded-full border border-champagne/70 px-5 py-2 text-sm font-medium transition hover:bg-champagne hover:text-wine focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne"
+                    className="ml-2 font-medium underline underline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne"
                   >
-                    Retry video
+                    Retry
                   </button>
                 </div>
               )}
