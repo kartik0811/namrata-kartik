@@ -93,15 +93,17 @@ export default function Hero({ started = true }) {
       </motion.div>
 
       {/* Scroll cue */}
-      <motion.a
-        href="#countdown"
-        aria-label="Scroll down to the wedding countdown"
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-[linear-gradient(135deg,#caa24a_0%,#f6e7ad_45%,#f6e7ad_55%,#b8860b_100%)] bg-clip-text text-5xl leading-none text-transparent drop-shadow-[0_0_10px_rgba(202,162,74,0.9)] transition hover:scale-125 focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-gold sm:bottom-8"
-        animate={reduce ? {} : { y: [0, 14, 0], scale: [1, 1.16, 1], opacity: [0.8, 1, 0.8] }}
-        transition={{ duration: 1.35, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <span aria-hidden="true">⌄</span>
-      </motion.a>
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 sm:bottom-8">
+        <motion.a
+          href="#countdown"
+          aria-label="Scroll down to the wedding countdown"
+          className="block bg-[linear-gradient(135deg,#caa24a_0%,#f6e7ad_45%,#f6e7ad_55%,#b8860b_100%)] bg-clip-text text-5xl leading-none text-transparent drop-shadow-[0_0_10px_rgba(202,162,74,0.9)] transition hover:scale-125 focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-gold"
+          animate={reduce ? {} : { y: [0, 14, 0], scale: [1, 1.16, 1], opacity: [0.8, 1, 0.8] }}
+          transition={{ duration: 1.35, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <span aria-hidden="true">⌄</span>
+        </motion.a>
+      </div>
     </section>
   );
 }

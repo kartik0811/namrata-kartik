@@ -23,7 +23,7 @@ export const weddingDateLong = "Monday, 25th January 2027";
 // TODO: keep these in sync with your wedding date above.
 export const weddingDateParts = {
   day: "25",
-  month: "JAN",
+  month: "Jan",
   year: "2027",
 };
 

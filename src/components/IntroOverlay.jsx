@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { couple } from "../data/weddingData";
 
@@ -15,18 +15,32 @@ const velvet = {
  * Enter/Space) parts the curtains to reveal the site — and, because that tap
  * is a user gesture, it also kicks off the background music.
  */
-export default function IntroOverlay({ onFinish }) {
+export default function IntroOverlay({ onReveal, onFinish }) {
   const reduce = useReducedMotion();
   const [opening, setOpening] = useState(false);
+  const revealTimerRef = useRef(null);
+  const curtainDuration = reduce ? 0.01 : 2.0;
+
+  useEffect(
+    () => () => {
+      if (revealTimerRef.current) window.clearTimeout(revealTimerRef.current);
+    },
+    []
+  );
 
   const open = useCallback(() => {
-    setOpening((prev) => {
-      if (prev) return prev;
-      // Keep this dispatch inside the user gesture for autoplay permission.
-      window.dispatchEvent(new Event("wedding:play-music"));
-      return true;
-    });
-  }, []);
+    if (opening) return;
+
+    // Keep this dispatch inside the user gesture for autoplay permission.
+    window.dispatchEvent(new Event("wedding:play-music"));
+    setOpening(true);
+    // Begin the hero sequence as the curtain starts fading, rather than after
+    // it has disappeared, so its first motion is already visible on iOS.
+    revealTimerRef.current = window.setTimeout(
+      onReveal,
+      Math.max(0, curtainDuration * 1000 - 120)
+    );
+  }, [curtainDuration, onReveal, opening]);
 
   const onKeyDown = (e) => {
     if (e.key === "Enter" || e.key === " ") {
@@ -34,8 +48,6 @@ export default function IntroOverlay({ onFinish }) {
       open();
     }
   };
-
-  const curtainDuration = reduce ? 0.01 : 2.0;
 
   return (
     <motion.div

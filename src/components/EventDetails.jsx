@@ -80,11 +80,11 @@ export default function EventDetails() {
 
         <SectionReveal delay={0.15} className="mt-14">
           <div className="overflow-hidden rounded-[2rem] bg-wine shadow-soft">
-            <div className="relative aspect-video overflow-hidden sm:aspect-auto sm:min-h-[34rem] lg:min-h-[38rem]">
+            <div className="relative aspect-[4/3] overflow-hidden sm:aspect-auto sm:min-h-[34rem] lg:min-h-[38rem]">
               <img
                 src={venueImage}
                 alt="Blueworld Castles at dusk"
-                className="absolute inset-0 h-full w-full object-cover object-center"
+                className="absolute inset-0 h-full w-full origin-top scale-[1.15] object-cover object-top sm:scale-100 sm:object-center"
               />
               <video
                 ref={videoRef}
@@ -132,7 +132,7 @@ export default function EventDetails() {
                     href={eventDetails.mapUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-full bg-gradient-gold px-6 py-3 text-sm font-medium text-white shadow-glow transition-transform hover:scale-105"
+                    className="rounded-full bg-gradient-gold px-4 py-2 text-xs font-medium text-white shadow-glow transition-transform hover:scale-105 sm:px-6 sm:py-3 sm:text-sm"
                   >
                     📍 Get Directions
                   </a>
@@ -140,9 +140,9 @@ export default function EventDetails() {
                     href={googleCalendarUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-full bg-gradient-gold px-6 py-3 text-sm font-medium text-white shadow-glow transition-transform hover:scale-105"
+                    className="rounded-full bg-gradient-gold px-4 py-2 text-xs font-medium text-white shadow-glow transition-transform hover:scale-105 sm:px-6 sm:py-3 sm:text-sm"
                   >
-                    🗓️ Add to Google Calendar
+                    🗓️ Add to Calendar
                   </a>
                 </div>
               </div>

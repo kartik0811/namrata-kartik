@@ -12,7 +12,7 @@ export default function ScratchCard({
   value,
   threshold = 0.45,
   onRevealed,
-  valueClassName = "font-serif text-4xl font-bold",
+  valueClassName = "font-[cursive] text-3xl font-bold leading-none",
 }) {
   const wrapRef = useRef(null);
   const canvasRef = useRef(null);
