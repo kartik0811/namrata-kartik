@@ -104,6 +104,12 @@ export default function Hero({ started = true }) {
           <span aria-hidden="true">⌄</span>
         </motion.a>
       </div>
+
+      {/* Kaala Teeka for Nazar */}
+      <div 
+        className="absolute bottom-0 right-0 z-20 h-2 w-2 rounded-full bg-black/90"
+        aria-hidden="true"
+      />
     </section>
   );
 }
