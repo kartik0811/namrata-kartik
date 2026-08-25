@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { couple } from "../data/weddingData";
 import logo from "../assets/nk_black-clean.png";
+// 1. Import your Ganesha icon/image here (a PNG with a transparent background or an SVG)
+import ganeshIcon from "../assets/ganesh.png"; 
 
 const links = [
   { label: "Countdown", href: "#countdown" },
@@ -30,7 +32,8 @@ export default function Navbar() {
         scrolled ? "glass shadow-soft py-2" : "bg-transparent py-4"
       }`}
     >
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-5">
+      {/* 2. Added 'relative' to the <nav> so the absolute positioned Ganesha stays inside it */}
+      <nav className="relative mx-auto flex max-w-6xl items-center justify-between px-5">
         <a
           href="#top"
           className="block h-11 w-[clamp(5.5rem,22vw,7rem)] md:h-12"
@@ -46,6 +49,18 @@ export default function Navbar() {
             }}
           />
         </a>
+
+        <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          <span
+            role="img"
+            aria-label="Lord Ganesha"
+            className="block h-8 w-8 bg-cocoa/80 [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] md:h-10 md:w-10"
+            style={{
+              maskImage: `url(${ganeshIcon})`,
+              WebkitMaskImage: `url(${ganeshIcon})`,
+            }}
+          />
+        </div>
 
         {/* Desktop links */}
         <ul className="hidden items-center gap-7 md:flex">
