@@ -5,8 +5,8 @@
 
 export const couple = {
   // TODO: Replace with your names
-  partnerOne: "Namrata",
-  partnerTwo: "Kartik",
+  partnerOne: "Kartik",
+  partnerTwo: "Namrata",
   monogram: "N & K", // used in navbar + footer
   hashtag: "#KarNamaHoGaya",
 };
