@@ -9,7 +9,7 @@ const venueImage = `${import.meta.env.BASE_URL}venue.jpg`;
 function createGoogleCalendarUrl() {
   const params = new URLSearchParams({
     action: "TEMPLATE",
-    text: "Namrata-Kartik-Wedding",
+    text: "Kartik-Namrata-Wedding",
     // End dates for all-day Google Calendar events are exclusive.
     dates: "20270125/20270126",
     location: `${eventDetails.venue}, ${eventDetails.address}`,

@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "A cinematic, animated wedding Save the Date website for Namrata & Kartik.",
+  "description": "A cinematic, animated wedding Save the Date website for Kartik & Namrata.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

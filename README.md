@@ -1,6 +1,6 @@
-# 💍 Namrata & Kartik — Save the Date
+# 💍 Kartik & Namrata — Save the Date
 
-A modern, cinematic, single-page wedding invitation for Namrata and Kartik.
+A modern, cinematic, single-page wedding invitation for Kartik and Namrata.
 
 Built with **React + Vite + Tailwind CSS + Framer Motion**.
 
