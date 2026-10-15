@@ -98,12 +98,24 @@ export default function Rsvp() {
                 key="thanks"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="rounded-3xl border border-gold/25 bg-wine p-10 shadow-soft"
+                className="rounded-3xl border border-gold/25 bg-wine p-8 shadow-soft"
               >
-                <div className="text-5xl animate-heartbeat">💛</div>
-                <h3 className="mt-4 font-script text-3xl text-champagne">Thank you!</h3>
-                <p className="mt-2 text-champagne/90">
-                  Your response means the world to us. See you at the celebration!
+                <div className="flex items-center justify-center gap-2">
+                  {form.attending === "yes" && (
+                    <h3 className="font-script text-3xl text-champagne">Thank you!</h3>
+                  )}
+                  <span
+                    className="animate-heartbeat text-3xl leading-none"
+                    role="img"
+                    aria-label={form.attending === "yes" ? "Celebration" : "Sad"}
+                  >
+                    {form.attending === "yes" ? "🎉" : "😔"}
+                  </span>
+                </div>
+                <p className="mt-3 text-champagne/90">
+                  {form.attending === "yes"
+                    ? "Your response means the world to us. See you at the celebration!"
+                    : "We're sorry you won't be able to join us. We'll miss you!"}
                 </p>
               </motion.div>
             ) : (
